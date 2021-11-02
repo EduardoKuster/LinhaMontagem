@@ -1,0 +1,126 @@
+.usuario{
+    border: none;
+    background: transparent;
+    outline: none;
+    color:white;
+    margin-right: -45%;
+}
+.fa-user{
+    margin-right: 3%;
+}
+
+#local{
+    padding-top:2%;
+    text-align: center;
+}
+
+#container{
+    background-color: #f2ffff;
+    align-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+#form{
+    margin-left: -15%;
+    width: 150%;
+    padding-top: 3%;
+    font-size: 20px;
+}
+
+.form{
+    margin-left: -15%;
+    width: 150%;
+    padding-top: 7%;
+    font-size: 20px;
+}
+
+.btn-secondary{
+    margin-left: 80%;
+}
+
+.btn-success{
+    margin-left: -50%;
+}
+
+.input{
+    width: 200%;    
+    font-size: 22px;
+}
+
+.dropdown .dropdown-item:hover {background: lightblue; color:#000;}
+
+body{
+    background-color: #f2ffff;
+}
+
+#footer{
+    background-color: #242424;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+}
+
+#footer{
+    height: 7%;
+    font-size: 14px;
+}
+
+.row{
+    margin-top:0.2%;
+}
+
+.coluna{
+    width: 33%;
+}
+
+.coluna-media{
+    width: 40%;
+}
+
+.coluna-pequena{
+    width: 20%;
+}
+
+.coluna-menor{
+    width: 10%;
+}
+
+.grid{
+    background-color: white;
+    height: 200%;
+    min-height: 160px;
+    width: 50%;
+    margin-left: 12%;
+    border: 1px solid black;   
+}
+
+.botoesgrid{
+    padding-right: 25px;
+    padding-left: 25px;   
+}
+
+.espacamento{
+    width: 3%;
+}
+
+#logo{
+   position: absolute;
+   left: 20%;
+   top: 23%;
+}
+
+#supervisor{
+    position: absolute;
+    top:27%;
+    left: 51%
+}
+
+#funcionario{
+    position: absolute;
+    top:27%;
+    left: 53%
+}

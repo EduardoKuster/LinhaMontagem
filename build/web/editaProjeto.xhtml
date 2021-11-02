@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css"/>
+    <h:head>
+        <link rel="stylesheet" href="css/geral.css" type="text/css"/>
+        <h:outputStylesheet name="geral.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></link>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <link href="css/geral.css" rel="stylesheet" type="text/css"/>
+        <title>Editar Projeto</title>
+        <link rel="shortcut icon" href="css/favicon.ico" />
+    </h:head>
+    <h:body onload="#{beanProjeto.buscar(param.idprojeto); beanProjeto.buscarSupervisores(); beanProjeto.buscarFuncionarios(); beanProjeto.calcularTempoprevistoString()}">   
+       <div id="cabecalho">  
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul style="margin-left: 10%" class="navbar-nav mr-auto">
+                        <li><img src="css/logopequenabranca.png" alt="" style="margin: -5px; margin-right: 10px; margin-top: 1px;"/> </li>
+                        <li class="nav-item active">
+                            <a class="nav-link text-white font-weight-bold" href="index.jsf">Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Meus Projetos</a>
+                        </li>
+                        <li class="nav-item dropdown bg-primary">
+                            <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ferramentas
+                            </a>
+                            <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-white" href="ferramentas.jsf">Listar Ferramentas</a>
+                                <a class="dropdown-item text-white" href="criaFerramenta.jsf">Nova Ferramenta</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown bg-primary">
+                            <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Peças
+                            </a>
+                            <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-white" href="pecas.jsf">Listar Peças</a>
+                                <a class="dropdown-item text-white" href="criaPeca.jsf">Nova Peça</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown bg-primary">
+                            <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Etapas
+                            </a>
+                            <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-white" href="etapas.jsf">Listar Etapas</a>
+                                <a class="dropdown-item text-white" href="criaEtapa.jsf">Nova Etapa</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown bg-primary">
+                            <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Projetos
+                            </a>
+                            <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-white" href="projetos.jsf">Listar Projetos</a>
+                                <a class="dropdown-item text-white" href="criaProjeto.jsf">Novo Projeto</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown bg-primary">
+                            <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuários
+                            </a>
+                            <div class="dropdown-menu bg-primary" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-white" href="usuarios.jsf">Listar Usuários</a>
+                                <a class="dropdown-item text-white" href="criaSupervisor.jsf">Novo Supervisor</a>                            
+                                <a class="dropdown-item text-white" href="criaFuncionario.jsf">Novo Funcionario</a>
+                            </div>
+                        </li>
+
+                    </ul>                    
+                    <h:form class="form-inline">       
+                         <i class="fa fa-user"/>
+                        <h:inputText class="usuario" value="Usuário" disabled="true"/>                       
+                        <a class="text-white" href="logout.jsf">Sair</a>
+                    </h:form>                    
+                </div>
+            </nav>
+        </div>
+        <h4 id="local">Editando Etapa</h4>
+        <div id="container"  class="justify-content-center d-flex">
+            <h:form id="form" class="form-check d-flex justify-content-center" >
+               <h:panelGrid columns="1">
+                   <h:messages></h:messages>
+               <h:outputLabel>Nome</h:outputLabel>
+                    <h:inputText  class="input form-control" value="#{beanProjeto.nome}" />                 
+
+                    <h:column><br></br>
+                        <h:outputLabel>Situação</h:outputLabel>
+                        <h:selectOneMenu  class="input form-control" value="#{beanProjeto.situacao}">
+                            <f:selectItem itemLabel="Não Iniciado" itemValue="1" />
+                            <f:selectItem itemLabel="Em progresso" itemValue="2" />
+                            <f:selectItem itemLabel="Finalizado" itemValue="3" />
+                        </h:selectOneMenu>
+                    </h:column> 
+
+                    <h:outputLabel>Quantidade de repetições totais</h:outputLabel>
+                    <h:inputText class="input form-control" value="#{beanProjeto.repeticoes}" /> 
+
+                    <h:column><br></br>
+                        <h:outputLabel>Supervisor</h:outputLabel>
+                        <h:selectOneMenu  class="input form-control" value="#{beanProjeto.fksupervisor}">
+                            <f:selectItems value="#{beanProjeto.supervisores}" var="sup" itemValue="#{sup.idsupervisor}" itemLabel="#{sup.nome}" />
+                        </h:selectOneMenu>
+                    </h:column> 
+
+                    <h:column><br></br>
+                        <h:outputLabel>Funcionário trabalhando atualmente</h:outputLabel>
+                        <h:selectOneMenu  class="input form-control" value="#{beanProjeto.fkfuncionario}">
+                            <f:selectItems value="#{beanProjeto.funcionarios}" var="func" itemValue="#{func.idfuncionario}" itemLabel="#{func.nome}" />
+                        </h:selectOneMenu>
+                    </h:column> 
+
+                    <br></br>
+                    <h:panelGrid columns="2" class="botoes d-flex justify-content-center" style="width: 200%">
+                        <h:column>
+                            <h:commandButton class="btn btn-success " value="Salvar" action="#{beanProjeto.editar()}" /> 
+                        </h:column>
+
+                        <h:column class="botaovoltar">
+                            <h:commandButton class="btn btn-secondary" value="Cancelar"  action="index" /> 
+                        </h:column>
+                    </h:panelGrid>
+                </h:panelGrid>
+
+            </h:form>
+        </div>
+        <div id="footer">
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-3">
+                    <i class="fa fa-phone"> (47)1234-5678 </i> <i class="fa fa-at"> empresa@yahoo.com</i> <br></br>   <i  class="fa fa-twitter-square"> Twitter: @OficinaDeMontagem </i>
+                </div>  
+                <br> </br> 
+                <br></br> 
+                <br> </br> 
+                <div class="col-sm-3" style="margin-left: 2%">
+                    <i class="	fa fa-map-marker">  bairro, nome da rua, numero 69 </i>  <br></br>   <i  class="fa fa-facebook-square"> Facebook: EmpresaMontagem@gmail.ru </i> <br></br>  <i class="fa fa-registered"> Oficina de Montagem inc.</i>
+                </div>
+            </div>
+        </div>
+    </h:body>
+</html>

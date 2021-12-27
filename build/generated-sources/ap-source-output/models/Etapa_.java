@@ -9,7 +9,7 @@ import models.Etapasprojetos;
 import models.Ferramenta;
 import models.Peca;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-06-28T20:06:18")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2021-12-27T13:10:48")
 @StaticMetamodel(Etapa.class)
 public class Etapa_ { 
 

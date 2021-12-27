@@ -123,7 +123,7 @@ public class BeanEtapa {
         }
         try {
             if (msg == null) {
-                this.tempoestimado = new SimpleDateFormat("HH:mm").parse(tempoestimadoString);
+                this.tempoestimado = new SimpleDateFormat("HH:mm:ss").parse(tempoestimadoString);
             }
 
             Etapa e = new Etapa(this.descricao, this.tempoestimado, this.ferramenta, this.peca);
@@ -159,6 +159,11 @@ public class BeanEtapa {
         FacesContext view = FacesContext.getCurrentInstance();
         FacesMessage msg = null;
 
+         try {
+            if (msg == null) {
+                this.tempoestimado = new SimpleDateFormat("HH:mm:ss").parse(tempoestimadoString);
+            }      
+        
         if (descricao.equals("")) {
             msg = new FacesMessage("Informe o nome da ferramenta");
             view.addMessage(null, msg);
@@ -169,6 +174,10 @@ public class BeanEtapa {
                 msg = new FacesMessage("Etapa editada com sucesso");
                 view.addMessage(null, msg);
             }
+        }
+            
+        } catch (Exception ex) {
+            view.addMessage(null, new FacesMessage(ex.getMessage()));
         }
         return "editaEtapa.jsf?faces-redirect=true&idetapa=" + idetapa;
     }

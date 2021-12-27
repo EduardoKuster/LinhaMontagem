@@ -51,7 +51,19 @@ public class DaoSupervisor {
          return null;
       return em.find(Supervisor.class, Id);    
     } 
-
+     
+    public static Supervisor encontraLogin(String login){       
+      EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");  
+      EntityManager em = emf.createEntityManager();
+      if(login == "")
+         return null;
+      try{        
+        Supervisor sup = (Supervisor) em.createQuery("SELECT s FROM Supervisor s where s.login = :value1").setParameter("value1", login).getSingleResult();
+        return sup;    
+      }catch(Exception ex){
+          return null;
+      }
+    } 
     
    public static boolean delete(Supervisor supervisor){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");

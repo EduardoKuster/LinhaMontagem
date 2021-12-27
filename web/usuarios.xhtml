@@ -89,11 +89,11 @@ and open the template in the editor.
                         </li>
 
                     </ul>                    
-                    <h:form class="form-inline">       
+                     <h:form class="form-inline">   
                         <i class="fa fa-user"/>
-                        <h:inputText class="usuario" value="Usuário" disabled="true"/>                       
-                        <a class="text-white" href="logout.jsf">Sair</a>
-                    </h:form>                    
+                        <a class="text-white usuario"  href="login.jsf"> ${sessionScope['user']}</a>                 
+                        <a class="text-white sair" href="logout.jsf">Sair</a>
+                    </h:form>                     
                 </div>
             </nav>
         </div>

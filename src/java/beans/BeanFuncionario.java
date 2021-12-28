@@ -24,6 +24,15 @@ public class BeanFuncionario {
     private List<Funcionario> lista;
      private List<Supervisor> supervisores;
     private int fksupervisor;
+    private boolean ehuser;
+
+    public boolean getEhuser() {
+        return ehuser;
+    }
+
+    public void setEhuser(boolean ehuser) {
+        this.ehuser = ehuser;
+    }
 
     public List<Funcionario> getLista() {
         return lista;
@@ -152,6 +161,8 @@ public class BeanFuncionario {
                 view.addMessage(null, msg);
             }
         }
+        if(this.ehuser)
+            return "funcionario.jsf";  
         return "editaFuncionario.jsf?faces-redirect=true&idfuncionario="+idfuncionario;  
       }      
     

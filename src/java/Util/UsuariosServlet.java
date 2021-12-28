@@ -6,8 +6,6 @@
 package Util;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.Supervisor;
 
 /**
  *
@@ -31,30 +28,19 @@ public class UsuariosServlet extends HttpServlet {
             throws ServletException, IOException {
          
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null)
+        if(session.getAttribute("user") == null){
             session.setAttribute("user", "Login");
-        
-        //info da sessao
-        //PrintWriter writer = response.getWriter();
-       // writer.println("Session ID: " + session.getId());
-       // writer.println("Creation Time: " + new Date(session.getCreationTime()));
-       // writer. println("Last Accessed Time: " + new Date(session.getLastAccessedTime()));        
-       // writer.println("username: " + session.getAttribute("user"));
+            request.getSession().setAttribute("tipo", "");
+        }                    
        
        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsf");
        dispatcher.forward(request, response);
     }
-
-    
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+   
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }
 
 

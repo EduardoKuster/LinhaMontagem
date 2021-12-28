@@ -76,6 +76,18 @@ public class DaoFuncionario {
         return true;
     }
      
+      public static Funcionario encontraLogin(String login){       
+      EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");  
+      EntityManager em = emf.createEntityManager();
+      if(login == "")
+         return null;
+      try{        
+        Funcionario sup = (Funcionario) em.createQuery("SELECT s FROM Funcionario s where s.login = :value1").setParameter("value1", login).getSingleResult();
+        return sup;    
+      }catch(Exception ex){
+          return null;
+      }
+    } 
       
        public static boolean deletar(Funcionario func){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");

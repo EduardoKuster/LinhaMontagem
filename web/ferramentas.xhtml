@@ -8,6 +8,7 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <h:head>
         <link rel="stylesheet" href="css/geral.css" type="text/css"/>
@@ -31,9 +32,10 @@ and open the template in the editor.
                         <li class="nav-item active">
                             <a class="nav-link text-white font-weight-bold" href="index.jsf">Inicio <span class="sr-only">(current)</span></a>
                         </li>
+                         <ui:fragment rendered="#{sessionScope['user'] !='Login'}">
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Meus Projetos</a>
-                        </li>
+                            <a class="nav-link text-white" href="meusProjetos.jsf">Meus Projetos</a>
+                        </li>                       
                         <li class="nav-item dropdown bg-primary">
                             <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Ferramentas
@@ -43,7 +45,6 @@ and open the template in the editor.
                                 <a class="dropdown-item text-white" href="criaFerramenta.jsf">Nova Ferramenta</a>
                             </div>
                         </li>
-
                         <li class="nav-item dropdown bg-primary">
                             <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Peças
@@ -54,6 +55,7 @@ and open the template in the editor.
                             </div>
                         </li>
 
+                        <ui:fragment rendered="#{sessionScope['tipo'] =='sup'}">
                         <li class="nav-item dropdown bg-primary">
                             <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Etapas
@@ -84,16 +86,18 @@ and open the template in the editor.
                                 <a class="dropdown-item text-white" href="criaFuncionario.jsf">Novo Funcionario</a>
                             </div>
                         </li>
-
-                    </ul>                    
-                    <h:form class="form-inline">   
-                        <i class="fa fa-user"/>
-                        <a class="text-white usuario"  href="login.jsf"> ${sessionScope['user']}</a>                 
-                        <a class="text-white sair" href="logout.jsf">Sair</a>
-                    </h:form>                    
+                        </ui:fragment>
+                        </ui:fragment>
+                    </ul>                       
+                    <i class="fa fa-user"/>
+                    <a class="text-white usuario"  href="login"> ${sessionScope['user']}</a>     
+                    <ui:fragment rendered="#{sessionScope['user'] !='Login'}">
+                    <a class="text-white sair" href="logout.jsf">Sair</a>
+                    </ui:fragment>                 
                 </div>
             </nav>
         </div>
+        <ui:fragment rendered="#{sessionScope['user'] !='Login'}">
         <h4 id="local">Ferramentas</h4>
         <div id="container"  class="justify-content-center d-flex">
             <h:form id="form" class="form-check d-flex justify-content-center" >               
@@ -125,6 +129,8 @@ and open the template in the editor.
                 </h:panelGrid>
             </h:form>
         </div>
+        </ui:fragment>
+        <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>
         <div id="footer">
             <div class="row">
                 <div class="col-sm-3">

@@ -22,7 +22,15 @@ public class BeanSupervisor {
     private String senha;
     private String setor;
     private List<Supervisor> lista;
+    private boolean ehuser;
 
+    public boolean getEhuser() {
+        return ehuser;
+    }
+
+    public void setEhuser(boolean ehuser) {
+        this.ehuser = ehuser;
+    }
     public List<Supervisor> getLista() {
         return lista;
     }
@@ -133,6 +141,8 @@ public class BeanSupervisor {
                 view.addMessage(null, msg);
             }
         }
+         if(this.ehuser)
+            return "supervisor.jsf";  
         return "editaSupervisor.jsf?faces-redirect=true&idsupervisor="+idsupervisor;  
       }      
     

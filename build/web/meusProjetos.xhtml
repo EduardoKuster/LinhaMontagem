@@ -19,11 +19,11 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link href="css/geral.css" rel="stylesheet" type="text/css"/>
-        <title>Etapas</title>
+        <title>Projetos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="shortcut icon" href="css/favicon.ico" />
     </h:head>
-    <h:body  onload="#{beanEtapa.consultar()}">
+    <h:body  onload="#{beanProjeto.consultar()}">
         <div id="cabecalho">  
             <nav class="navbar navbar-expand-lg navbar-light bg-primary">                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -99,34 +99,49 @@ and open the template in the editor.
         <h4 id="local">Etapas</h4>
         <div id="container"  class="justify-content-center d-flex">
             <h:form id="form" class="form-check d-flex justify-content-center" >               
-                <h:panelGrid class="grid">
+                <h:panelGrid class="grid" style="width: 70%;">
                     <h:messages></h:messages>
-                    <h:dataTable var="etapa" value="#{beanEtapa.lista}">                       
+                    <h:dataTable var="proj" value="#{beanProjeto.lista}">
                         <h:column class="espacamento"></h:column>
-                        <h:column class="coluna-media">
+                        <h:column class="coluna">
                             <f:facet name="header">Nome</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{etapa.descricao}" />
+                            <h:outputLabel  class="listaitem" value="#{proj.nome}" />
                         </h:column>
-                        <h:column  class="coluna">
-                            <f:facet name="header">Tempo estimado</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{etapa.tempoString()}" />
+                        <h:column class="coluna-pequena">
+                            <f:facet name="header">Encarregado</f:facet>
+                            <h:outputLabel class="listaitem"  value="#{proj.nomesupervisor()}" />
+                        </h:column> 
+                        <h:column class="coluna-menor">
+                            <f:facet name="header">Tempo previsto</f:facet>
+                            <h:outputLabel  class="listaitem" value="#{proj.tempoprevisto()}" />
+                        </h:column >
+                        <h:column class="coluna-pequena">
+                            <f:facet name="header">Etapa Atual</f:facet>
+                            <h:outputLabel  class="listaitem" value="#{proj.etapaAtual()}" />
                         </h:column>
-                        <h:column class="coluna-media">
-                            <f:facet name="header">Ferramenta</f:facet>
-                            <h:outputLabel class="listaitem"  value="#{etapa.nomeferramenta()}" />
+                        <h:column class="coluna-menor">
+                            <f:facet name="header">Repetições restantes</f:facet>
+                            <h:outputLabel  class="listaitem" value="#{proj.repeticoesRestantes()}" />
+                        </h:column>
+                        <h:column class="coluna-pequena">
+                            <f:facet name="header">Situação</f:facet>
+                            <h:outputLabel  class="listaitem" value="#{proj.buscarSituacao()}" />
+                        </h:column>
+                        <h:column class="coluna botoesgrid">
+                            <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanProjeto.editarRedirect(proj.idprojeto)}"></h:commandLink>
                         </h:column> 
-                        <h:column  class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanEtapa.editarRedirect(etapa.idetapa)}"></h:commandLink>
-                        </h:column> 
-                        <h:column  class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"   class="listaitem btn btn-danger text-white border-1 border-dark"  value="deletar" action="#{beanEtapa.deletar(etapa.idetapa)}"></h:commandLink>
+                        <h:column class="coluna botoesgrid">
+                            <h:commandLink style="color:lightskyblue;"   class="listaitem btn btn-danger text-white border-1 border-dark"  value="deletar" action="#{beanProjeto.deletar(proj.idprojeto)}"></h:commandLink>
                         </h:column>
                     </h:dataTable>
                 </h:panelGrid>
             </h:form>
-        </div> 
+            </div>  
         </ui:fragment>
-        <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>
+        <ui:fragment rendered="#{sessionScope['user'] !='Login' and sessionScope['tipo'] =='func'}">
+            tu é funcionário
+        </ui:fragment>
+        <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>        
         <div id="footer">
             <div class="row">
                 <div class="col-sm-3">

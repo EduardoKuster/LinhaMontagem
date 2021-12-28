@@ -7,10 +7,13 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"      
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <h:head>
+        <link rel="stylesheet" href="css/geral.css" type="text/css"/>
+        <h:outputStylesheet name="geral.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
         <link rel="stylesheet" href="css/geral.css" type="text/css"/>
         <h:outputStylesheet name="geral.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
@@ -19,11 +22,11 @@ and open the template in the editor.
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <link href="css/geral.css" rel="stylesheet" type="text/css"/>
-        <title>Etapas</title>
+        <title>Ferramentas</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link rel="shortcut icon" href="css/favicon.ico" />
     </h:head>
-    <h:body  onload="#{beanEtapa.consultar()}">
+    <h:body onload="#{beanSupervisor.buscar(sessionScope['id']); beanSupervisor.setEhuser(true)}">
         <div id="cabecalho">  
             <nav class="navbar navbar-expand-lg navbar-light bg-primary">                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -55,6 +58,7 @@ and open the template in the editor.
                             </div>
                         </li>
 
+                        <ui:fragment rendered="#{sessionScope['tipo'] =='sup'}">
                         <li class="nav-item dropdown bg-primary">
                             <a class="nav-link text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Etapas
@@ -86,6 +90,7 @@ and open the template in the editor.
                             </div>
                         </li>
                         </ui:fragment>
+                        </ui:fragment>
                     </ul>                       
                     <i class="fa fa-user"/>
                     <a class="text-white usuario"  href="login"> ${sessionScope['user']}</a>     
@@ -95,38 +100,34 @@ and open the template in the editor.
                 </div>
             </nav>
         </div>
-        <ui:fragment rendered="#{sessionScope['user'] !='Login' and sessionScope['tipo'] =='sup'}">
-        <h4 id="local">Etapas</h4>
-        <div id="container"  class="justify-content-center d-flex">
-            <h:form id="form" class="form-check d-flex justify-content-center" >               
-                <h:panelGrid class="grid">
-                    <h:messages></h:messages>
-                    <h:dataTable var="etapa" value="#{beanEtapa.lista}">                       
-                        <h:column class="espacamento"></h:column>
-                        <h:column class="coluna-media">
-                            <f:facet name="header">Nome</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{etapa.descricao}" />
+        <ui:fragment rendered="#{sessionScope['user'] !='Login'}">
+        <div id="container"  class="justify-content-center d-flex" style="margin-left: 7%;">
+           <ui:fragment rendered="#{sessionScope['tipo'] =='sup'}">
+            <h:form id="form" class="form-check d-flex justify-content-center" >
+               <h:panelGrid columns="1">
+                   <h:messages></h:messages>
+                    <h:outputLabel>Nome</h:outputLabel>
+                    <h:inputText  class="input form-control" value="#{beanSupervisor.nome}" />                
+               
+                <h:outputLabel>Senha</h:outputLabel>
+                <h:inputSecret redisplay="true" class="input form-control" value="#{beanSupervisor.senha}" />  
+                <h:inputHidden class="input form-control" value="#{beanSupervisor.ehuser}" />  
+                <br></br>
+                <h:panelGrid columns="2" class="botoes d-flex justify-content-center" style="width: 200%">
+                        <h:column>
+                            <h:commandButton class="btn btn-success " value="Atualizar meu registro" action="#{beanSupervisor.editar()}" /> 
                         </h:column>
-                        <h:column  class="coluna">
-                            <f:facet name="header">Tempo estimado</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{etapa.tempoString()}" />
+
+                        <h:column class="botaovoltar">
+                            <h:commandButton class="btn btn-secondary" value="Cancelar"  action="index" /> 
                         </h:column>
-                        <h:column class="coluna-media">
-                            <f:facet name="header">Ferramenta</f:facet>
-                            <h:outputLabel class="listaitem"  value="#{etapa.nomeferramenta()}" />
-                        </h:column> 
-                        <h:column  class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanEtapa.editarRedirect(etapa.idetapa)}"></h:commandLink>
-                        </h:column> 
-                        <h:column  class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"   class="listaitem btn btn-danger text-white border-1 border-dark"  value="deletar" action="#{beanEtapa.deletar(etapa.idetapa)}"></h:commandLink>
-                        </h:column>
-                    </h:dataTable>
+                    </h:panelGrid>
                 </h:panelGrid>
-            </h:form>
-        </div> 
+            </h:form>        
+           </ui:fragment>
+         </div>
         </ui:fragment>
-        <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>
+         <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>
         <div id="footer">
             <div class="row">
                 <div class="col-sm-3">
@@ -141,6 +142,6 @@ and open the template in the editor.
                     <i class="	fa fa-map-marker">  bairro, nome da rua, numero 69 </i>  <br></br>   <i  class="fa fa-facebook-square"> Facebook: EmpresaMontagem@gmail.ru </i> <br></br>  <i class="fa fa-registered"> Oficina de Montagem inc.</i>
                 </div>
             </div>
-        </div>
+        </div>                       
     </h:body>
 </html>

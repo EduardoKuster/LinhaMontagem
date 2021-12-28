@@ -5,6 +5,7 @@
  */
 package Util;
 
+import DAO.DaoFuncionario;
 import DAO.DaoSupervisor;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.Funcionario;
 import models.Supervisor;
 
 /**
@@ -45,6 +47,8 @@ public class LoginServlet extends HttpServlet {
                 if (user != null) {
                     if (user.getSenha().equalsIgnoreCase(senha)) {
                         request.getSession().setAttribute("user", user.getNome());
+                        request.getSession().setAttribute("tipo", "sup");
+                        request.getSession().setAttribute("id", user.getIdsupervisor());
                         response.sendRedirect("index.jsf");
                         return;
                     } else {
@@ -54,13 +58,29 @@ public class LoginServlet extends HttpServlet {
                     erros.append("Usuário não encontrado!");
                 }
             }
-
+            if(!erros.toString().isEmpty() && !erros.toString().contains("inform"))
+            {
+                DaoFuncionario dao = new DaoFuncionario();
+                Funcionario user = dao.encontraLogin(login);
+                if (user != null) {
+                    if (user.getSenha().equalsIgnoreCase(senha)) {
+                        request.getSession().setAttribute("user", user.getNome());
+                        request.getSession().setAttribute("tipo", "func");
+                        request.getSession().setAttribute("id", user.getIdfuncionario());
+                        response.sendRedirect("index.jsf");
+                        return;
+                    } 
+                } 
+            }
         }
         request.getSession().invalidate();
         
         HttpSession session = request.getSession();
-        if(session.getAttribute("user") == null)
-            session.setAttribute("user", "Login");
+        if(session.getAttribute("user") == null){
+             session.setAttribute("user", "Login");
+             request.getSession().setAttribute("tipo", "");
+             request.getSession().setAttribute("id", "");
+        }            
         
         request.setAttribute("mensagens", erros);
         

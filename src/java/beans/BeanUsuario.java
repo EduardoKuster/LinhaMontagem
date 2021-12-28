@@ -27,6 +27,7 @@ public class BeanUsuario {
           users.add(new Funcionario().todos());    
           users.add(new Supervisor().todos());    
           return users;
+          
     }
 }
 

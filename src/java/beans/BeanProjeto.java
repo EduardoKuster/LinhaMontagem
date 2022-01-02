@@ -5,6 +5,7 @@
  */
 package beans;
 
+import DAO.DaoEtapa;
 import DAO.DaoFuncionario;
 import DAO.DaoPeca;
 import DAO.DaoProjeto;
@@ -17,6 +18,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import models.Etapa;
+import models.Etapasprojetos;
 import models.Funcionario;
 import models.Projeto;
 import models.Supervisor;
@@ -36,7 +38,16 @@ public class BeanProjeto {
     private List<Projeto> lista;
     private List<Supervisor> supervisores;
     private List<Funcionario> funcionarios;
-    private List<Etapa> etapas;
+    private List<Etapa> etapas = new ArrayList<>();
+    private int etapaAdc;
+
+    public int getEtapaAdc() {
+        return etapaAdc;
+    }
+
+    public void setEtapaAdc(int etapaAdc) {
+        this.etapaAdc = etapaAdc;
+    }
 
     public List<Etapa> getEtapas() {
         return etapas;
@@ -62,12 +73,18 @@ public class BeanProjeto {
         this.supervisores = supervisores;
     }
 
-       public String editarRedirect(int id){
+    public String editarRedirect(int id){
        return "editaProjeto.jsf?faces-redirect=true&idprojeto="+id;      
+    }
+       
+    public String editarEtapasRedirect(int id){
+       return "editaEtapasProjeto.jsf?faces-redirect=true&idprojeto="+id;      
     }
 
      public void buscar(int id){
         Projeto f = DaoProjeto.buscar(id);
+        if(this.etapaAdc != 0 || f ==null)
+            return;
         this.idprojeto = f.getIdprojeto();
         this.nome = f.getNome();
         this.situacao =f.getSituacao();
@@ -110,6 +127,30 @@ public class BeanProjeto {
           this.lista = new Projeto().consultar();              
     }
 
+     public void consultarVinculado(String id, String tipo){  
+         DaoProjeto p = new DaoProjeto();         
+          this.lista = p.consultarVinculado(id, tipo);              
+    }
+     public void AdicionarEtapa(){
+         Etapa e = DaoEtapa.buscar(etapaAdc);
+         Projeto p = DaoProjeto.buscar(this.idprojeto);
+         this.etapas.add(e);       
+         Etapasprojetos ep = new Etapasprojetos(e,p);
+         DaoEtapa.persistProj(ep);
+         editarEtapasRedirect(this.idprojeto);
+     }
+     
+     public void removerEtapa(int etapa){
+         Etapa e = DaoEtapa.buscar(etapa);
+         this.etapas.remove(e);         
+         this.etapaAdc = e.getIdetapa();
+         DaoEtapa.deletarDoProj(e.getIdetapa(), this.idprojeto);
+         editarEtapasRedirect(this.idprojeto);
+     }
+     
+       public void buscarEtapas() {
+        this.etapas = new DaoEtapa().consultarProjeto(this.idprojeto);
+    }
     
     public String editar(){
         FacesContext view = FacesContext.getCurrentInstance();

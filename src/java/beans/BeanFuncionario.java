@@ -25,6 +25,15 @@ public class BeanFuncionario {
      private List<Supervisor> supervisores;
     private int fksupervisor;
     private boolean ehuser;
+    private String setor;
+
+    public String getSetor() {
+        return setor;
+    }
+
+    public void setSetor(String setor) {
+        this.setor = setor;
+    }
 
     public boolean getEhuser() {
         return ehuser;
@@ -90,11 +99,25 @@ public class BeanFuncionario {
     }
 
     public void buscarSupervisores(){
-        List<Supervisor> SuupervisorEscolhas = new ArrayList<Supervisor>();
+        List<Supervisor> SuupervisorEscolhas = new ArrayList<>();
         SuupervisorEscolhas.add(new Supervisor(0, "sem supervisor", "","","Sem Setor"));
         SuupervisorEscolhas.addAll(DaoSupervisor.todos());    
-        supervisores = SuupervisorEscolhas;       
+        supervisores = SuupervisorEscolhas;     
     }
+    
+    public String getSetorSupervisor(int idfunc){
+         Funcionario esse = DaoFuncionario.buscar(idfunc); 
+         if(esse.getFksupervisor() != null)
+            this.fksupervisor = esse.getFksupervisor().getIdsupervisor();
+        else
+            this.fksupervisor = 0;
+        
+        Supervisor sup = DaoSupervisor.buscar(this.fksupervisor);
+        if(sup != null)            
+            return sup.getSetor();     
+        else return null;
+    }
+    
     public void salvar() {
         FacesContext view = FacesContext.getCurrentInstance();
         FacesMessage msg = null;
@@ -180,7 +203,7 @@ public class BeanFuncionario {
     }
     
       public void consultar(){  
-          this.lista = new Funcionario().todos();              
+          this.lista = new Funcionario().todos();             
     }
 }
 

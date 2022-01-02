@@ -90,7 +90,7 @@
             </nav>
         </div>
         <ui:fragment rendered="#{sessionScope['user'] !='Login'}">
-        <h4 id="local">Editando Etapa</h4>
+        <h4 id="local">Editando Projeto</h4>
         <div id="container"  class="justify-content-center d-flex">
             <h:form id="form" class="form-check d-flex justify-content-center" >
                <h:panelGrid columns="1">
@@ -122,14 +122,20 @@
                         <h:selectOneMenu  class="input form-control" value="#{beanProjeto.fkfuncionario}">
                             <f:selectItems value="#{beanProjeto.funcionarios}" var="func" itemValue="#{func.idfuncionario}" itemLabel="#{func.nome}" />
                         </h:selectOneMenu>
-                    </h:column> 
-
-                    <br></br>
+                    </h:column>                        
+                    <br></br>                    
                     <h:panelGrid columns="2" class="botoes d-flex justify-content-center" style="width: 200%">
+                        <div style="display:flex;justify-content:center;align-items:center;">                     
+                         <h:column>
+                             <h:commandButton class="btn btn-info" value="Editar etapas deste projeto" action="#{beanProjeto.editarEtapasRedirect(beanProjeto.idprojeto)}" /> 
+                        </h:column>
+                    </div>
+                        <br></br> 
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" class="botoes d-flex justify-content-center" style="width: 200%;margin-left: -5%;">
                         <h:column>
                             <h:commandButton class="btn btn-success " value="Salvar" action="#{beanProjeto.editar()}" /> 
-                        </h:column>
-
+                        </h:column>                        
                         <h:column class="botaovoltar">
                             <h:commandButton class="btn btn-secondary" value="Cancelar"  action="projetos.jsf" /> 
                         </h:column>

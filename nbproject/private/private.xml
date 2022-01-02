@@ -7,14 +7,20 @@
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaFerramenta.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/pecas.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/ferramentas.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanFuncionario.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaFerramenta.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/resources/geral.css</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Ferramenta.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaEtapasProjeto.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/Util/Erro.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaSupervisor.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaProjeto.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/DAO/DaoEtapa.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaPeca.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/meusProjetos.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Funcionario.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/DAO/DaoProjeto.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanProjeto.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaEtapa.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaSupervisor.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/projetos.xhtml</file>
@@ -23,7 +29,10 @@
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/Util/UsuariosServlet.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaEtapa.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/login.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/DAO/DaoFuncionario.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/supervisor.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaProjeto.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/funcionario.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/usuarios.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/criaFuncionario.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanSupervisor.java</file>
@@ -31,8 +40,11 @@
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanUsuario.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaFuncionario.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanEtapa.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/Util/AcessoServlet.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Etapasprojetos.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/index.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/etapas.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Etapa.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaPeca.xhtml</file>
         </group>
     </open-files>

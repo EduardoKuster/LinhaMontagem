@@ -47,6 +47,11 @@ public class Etapasprojetos implements Serializable {
     public Etapasprojetos() {
     }
 
+    public Etapasprojetos(Etapa fketapa, Projeto fkprojeto) {
+        this.fketapa = fketapa;
+        this.fkprojeto = fkprojeto;
+    }
+
     public Etapasprojetos(Integer idetapasprojetos) {
         this.idetapasprojetos = idetapasprojetos;
     }

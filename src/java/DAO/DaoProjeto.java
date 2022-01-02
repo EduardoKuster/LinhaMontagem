@@ -40,7 +40,21 @@ public class DaoProjeto {
         return tq.getResultList();
     }
      
-     
+     public static List<Projeto> consultarVinculado(String id, String tipo){ 
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();
+        
+        TypedQuery<Projeto> tq = null;
+                
+        if(tipo == "func")
+            tq = em.createQuery("select p from Projeto p where p.fkfuncionario = :value1", Projeto.class).setParameter("value1", DaoFuncionario.buscar(Integer.valueOf(id)));
+        else if(tipo == "sup")
+            tq = em.createQuery("select p from Projeto p where p.fksupervisor = :value1", Projeto.class).setParameter("value1", DaoSupervisor.buscar(Integer.valueOf(id)));
+        else 
+            return null;
+        
+        return tq.getResultList();
+     }
      
      public static Projeto buscar(int Id){
       EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");  

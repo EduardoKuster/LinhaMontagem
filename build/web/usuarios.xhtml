@@ -147,7 +147,7 @@ and open the template in the editor.
                         </h:column>                
                         <h:column class="coluna">
                             <f:facet name="header">Setor</f:facet>
-                            <h:outputLabel class="listaitem" value="#{funcionario.fksupervisor}" />
+                            <h:outputLabel class="listaitem" value="#{beanFuncionario.getSetorSupervisor(funcionario.idfuncionario)}" />
                         </h:column>
                         <h:column class="coluna botoesgrid">
                             <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanFuncionario.editarRedirect(funcionario.idfuncionario)}"></h:commandLink>

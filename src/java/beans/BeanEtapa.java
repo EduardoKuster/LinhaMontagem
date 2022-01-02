@@ -153,7 +153,7 @@ public class BeanEtapa {
 
     public void consultar() {
         this.lista = new Etapa().consultar();
-    }
+    }   
 
     public String editar() {
         FacesContext view = FacesContext.getCurrentInstance();

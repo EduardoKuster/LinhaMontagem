@@ -29,6 +29,13 @@
     font-size: 20px;
 }
 
+#form1{
+    margin-left: -15%;
+    width: 150%;
+    padding-top: 3%;
+    font-size: 20px;
+}
+
 .form{
     margin-left: -15%;
     width: 150%;
@@ -94,7 +101,7 @@ body{
     background-color: white;
     height: 200%;
     min-height: 160px;
-    width: 50%;
+    width: 70%;
     margin-left: 12%;
     border: 1px solid black;   
 }
@@ -122,4 +129,22 @@ body{
     position: absolute;
     top:27%;
     left: 53%
+}
+
+#etapas{
+    position: absolute;
+    top:13%;
+    left: 51%
+}
+
+#adcetapa{
+    position: absolute;
+    top:13%;
+    left: 53%
+}
+
+#selectetapa{
+    position: absolute;
+    top:35%;
+    left: 33%
 }

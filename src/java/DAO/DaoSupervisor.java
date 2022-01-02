@@ -94,13 +94,18 @@ public class DaoSupervisor {
      
       
        public static boolean deletar(Supervisor supervisor){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(supervisor)) {
-            supervisor = em.merge(supervisor);
-         }
-        em.remove(supervisor);
-        em.close();
-        return true;         
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Supervisor s where s.idsupervisor = :value1").setParameter("value1", supervisor.getIdsupervisor());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
+        return true;        
     } 
 }

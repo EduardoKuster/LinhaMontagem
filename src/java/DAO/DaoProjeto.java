@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import models.Projeto;
 
@@ -91,14 +92,19 @@ public class DaoProjeto {
     }
      
       
-       public static boolean deletar(Projeto ferramenta){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(ferramenta)) {
-            ferramenta = em.merge(ferramenta);
-         }
-        em.remove(ferramenta);
-        em.close();
+       public static boolean deletar(Projeto proj){
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Projeto p where p.idprojeto = :value1").setParameter("value1", proj.getIdprojeto());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
         return true;         
     } 
 }

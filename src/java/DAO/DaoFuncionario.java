@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import models.Funcionario;
 /**
@@ -90,13 +91,18 @@ public class DaoFuncionario {
     } 
       
        public static boolean deletar(Funcionario func){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(func)) {
-            func = em.merge(func);
-         }
-        em.remove(func);
-        em.close();
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Funcionario f where f.idfuncionario = :value1").setParameter("value1", func.getIdfuncionario());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
         return true;         
     } 
 }

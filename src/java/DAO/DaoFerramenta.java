@@ -80,13 +80,18 @@ public class DaoFerramenta {
      
       
        public static boolean deletar(Ferramenta ferramenta){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(ferramenta)) {
-            ferramenta = em.merge(ferramenta);
-         }
-        em.remove(ferramenta);
-        em.close();
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Ferramenta f where f.idferramenta = :value1").setParameter("value1", ferramenta.getIdferramenta());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
         return true;         
     } 
 }

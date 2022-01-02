@@ -94,15 +94,20 @@ public class DaoEtapa {
     }
      
       
-       public static boolean deletar(Etapa ferramenta){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(ferramenta)) {
-            ferramenta = em.merge(ferramenta);
-         }
-        em.remove(ferramenta);
-        em.close();
-        return true;         
+       public static boolean deletar(Etapa etapa){
+         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Etapa e where e.idetapa = :value1").setParameter("value1", etapa.getIdetapa());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
+        return true;       
     } 
 
     public static void deletarDoProj(Integer idetapa, Integer idprojeto) {

@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import models.Ferramenta;
 import models.Peca;
@@ -51,12 +52,17 @@ public class DaoPeca {
     
    public static boolean deletar(Peca peca){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
-        EntityManager em = emf.createEntityManager();
-        if (!em.contains(peca)) {
-            peca = em.merge(peca);
-         }
-        em.remove(peca);
-        em.close();
+        EntityManager em = emf.createEntityManager();   
+        try {
+            em.getTransaction().begin();
+            Query query = em.createQuery("delete from Peca p where p.idpeca = :value1").setParameter("value1", peca.getIdpeca());
+            int quantidadedeletada = query.executeUpdate();
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }        
         return true;         
     } 
     

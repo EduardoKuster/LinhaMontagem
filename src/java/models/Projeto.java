@@ -5,6 +5,7 @@
  */
 package models;
 
+import DAO.DaoEtapa;
 import DAO.DaoProjeto;
 import DAO.DaoSupervisor;
 import java.io.Serializable;
@@ -71,13 +72,24 @@ public class Projeto implements Serializable {
     @ManyToOne
     private Supervisor fksupervisor;
     @OneToMany(mappedBy = "fkprojeto")
-    private Collection<Etapasprojetos> etapasprojetosCollection;
+    private Collection<Etapasprojetos> etapasprojetosCollection; 
+    @Column(name = "etapaatual")
+    private Integer etapaatual;
+
+    public Integer getEtapaatual() {
+        return etapaatual;
+    }
+
+    public void setEtapaatual(Integer etapaatual) {
+        this.etapaatual = etapaatual;
+    }
 
     public Projeto() {
     }
 
     public Projeto(Integer idprojeto) {
         this.idprojeto = idprojeto;
+        this.repeticaoatual = 0;
     }
 
     public Integer getIdprojeto() {
@@ -92,6 +104,7 @@ public class Projeto implements Serializable {
         this.situacao = situacao;
         this.fkfuncionario = fkfuncionario;
         this.fksupervisor = fksupervisor;
+        this.repeticaoatual = 0;
     }
 
     public Projeto(Integer idprojeto, String nome, Integer repeticoes, Integer situacao, Funcionario fkfuncionario, Supervisor fksupervisor) {
@@ -103,6 +116,7 @@ public class Projeto implements Serializable {
         this.situacao = situacao;
         this.fkfuncionario = fkfuncionario;
         this.fksupervisor = fksupervisor;
+        this.repeticaoatual = 0;
     }
 
     public void setIdprojeto(Integer idprojeto) {
@@ -183,7 +197,6 @@ public class Projeto implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Projeto)) {
             return false;
         }
@@ -208,6 +221,12 @@ public class Projeto implements Serializable {
         else 
             return "Sem supervisor";
     }
+     public String nomefuncionario(){
+        if(fkfuncionario != null)
+            return fkfuncionario.getNome();
+        else 
+            return "Sem Funcionário";
+    }
      
      public String tempoprevisto(){
          //calcular o tempo combinado das etapas restantes
@@ -219,8 +238,13 @@ public class Projeto implements Serializable {
      }
      
      public String etapaAtual(){
-         //verificar qual etapa está sendo feita(precisaria de um campo status e sequencia na tabela Etapasprojetos)
-         return "Projeto não iniciado";
+         if(this.etapaatual == null || this.etapaatual == 0)
+            return "Não iniciado";
+         else
+         {
+             List<Etapa> et = DaoEtapa.consultarProjeto(this.idprojeto);             
+             return et.get(this.etapaatual-1).getDescricao();
+         }
      }
      
      public String buscarSituacao(){
@@ -229,7 +253,14 @@ public class Projeto implements Serializable {
              {
                  return "Não Iniciado";
              }
-             //bolar mais status
+             case 2:
+             {
+                 return "Em produção";
+             }
+             case 3:
+             {
+                 return "Finalizado";
+             }
              default:
              {
                  return "Status inválido";

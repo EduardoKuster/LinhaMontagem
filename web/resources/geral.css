@@ -36,6 +36,13 @@
     font-size: 20px;
 }
 
+#formproj{
+    margin-left: -15%;
+    width: 500%;
+    padding-top: 3%;
+    font-size: 20px;
+}
+
 .form{
     margin-left: -15%;
     width: 150%;
@@ -83,18 +90,26 @@ body{
 
 .coluna{
     width: 33%;
+    align-items: center;
+    text-align: center;
 }
 
 .coluna-media{
     width: 40%;
+    align-items: center;
+    text-align: center;
 }
 
 .coluna-pequena{
     width: 20%;
+    align-items: center;
+    text-align: center;
 }
 
 .coluna-menor{
     width: 10%;
+    align-items: center;
+    text-align: center;
 }
 
 .grid{
@@ -147,4 +162,9 @@ body{
     position: absolute;
     top:35%;
     left: 33%
+}
+
+th{
+    align-items: center;
+    text-align: center;
 }

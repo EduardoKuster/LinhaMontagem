@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/Util/LoginServlet.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaFerramenta.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/DAO/DaoPeca.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/pecas.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/ferramentas.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanFuncionario.java</file>
@@ -40,9 +41,11 @@
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanUsuario.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaFuncionario.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanEtapa.java</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/beans/BeanPeca.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/Util/AcessoServlet.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Etapasprojetos.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/index.xhtml</file>
+            <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/DAO/DaoFerramenta.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/etapas.xhtml</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/src/java/models/Etapa.java</file>
             <file>file:/C:/Users/Eduardo%20Kuster/Desktop/Homework/PDS/LinhaMontagem/web/editaPeca.xhtml</file>

@@ -129,7 +129,7 @@ public class DaoEtapa {
         }        
     }
 
-    public List<Etapa> consultarProjeto(int idprojeto) {
+    public static List<Etapa> consultarProjeto(int idprojeto) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("LinhaMontagemPU");
         EntityManager em = emf.createEntityManager();       
         TypedQuery<Etapa> tq = em.createQuery("select e from Etapa e inner join e.etapasprojetosCollection ep where ep.fkprojeto = :value1", Etapa.class).setParameter("value1", DaoProjeto.buscar(idprojeto));        

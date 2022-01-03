@@ -40,6 +40,15 @@ public class BeanProjeto {
     private List<Funcionario> funcionarios;
     private List<Etapa> etapas = new ArrayList<>();
     private int etapaAdc;
+    private int etapaAtual;
+
+    public int getEtapaAtual() {
+        return etapaAtual;
+    }
+
+    public void setEtapaAtual(int etapaAtual) {
+        this.etapaAtual = etapaAtual;
+    }
 
     public int getEtapaAdc() {
         return etapaAdc;
@@ -91,7 +100,10 @@ public class BeanProjeto {
         this.repeticoes = f.getRepeticoes();
         this.fksupervisor = (f.getFksupervisor() != null)? f.getFksupervisor().getIdsupervisor() : 0;
         this.fkfuncionario = (f.getFkfuncionario()!= null)? f.getFkfuncionario().getIdfuncionario(): 0;
-        //this.etapas = f.buscarEtapas();
+        if(f.getEtapaatual() != null)
+            this.etapaAtual = f.getEtapaatual();
+        else
+            this.etapaAtual = 0;
      }
      
     public void salvar() {
@@ -168,7 +180,25 @@ public class BeanProjeto {
             }
         }
         return "editaProjeto.jsf?faces-redirect=true&idprojeto="+idprojeto;  
-      }      
+      }    
+    
+    public String infoEtapaAtual(int idprojeto){
+        FacesContext view = FacesContext.getCurrentInstance();
+        this.buscar(idprojeto);
+        if(this.etapaAtual == 0)
+        {
+           view.addMessage(null, new FacesMessage("Sem etapa atual no projeto"));
+            return "";
+        }
+        buscarEtapas();
+        int idetapa = etapas.get(this.etapaAtual-1).getIdetapa();
+        if(idetapa == 0)
+        {
+           view.addMessage(null, new FacesMessage("Etapa Nao encontrada"));
+            return "";
+        }
+        return "editaEtapa.jsf?faces-redirect=true&idetapa="+idetapa;  
+    }
 
     public Integer getIdprojeto() {
         return idprojeto;
@@ -269,4 +299,60 @@ public class BeanProjeto {
           else 
             return "Sem supervisor";
     }
+       
+       public void iniciar(int idprojeto){           
+           FacesContext view = FacesContext.getCurrentInstance();     
+           Projeto p = DaoProjeto.buscar(idprojeto);
+           if(p == null)
+               return;
+           this.buscar(idprojeto);
+           
+           p.setSituacao(2);
+           p.setEtapaatual(1);
+           buscarEtapas();
+           if(etapas.isEmpty()){
+               view.addMessage(null, new FacesMessage("O projeto precisa de etapas para ser iniciado"));
+               return;
+           }
+           else
+               DaoProjeto.editar(p);
+       }
+       
+       public void avancarEtapa(int idprojeto){           
+           FacesContext view = FacesContext.getCurrentInstance();     
+           Projeto p = DaoProjeto.buscar(idprojeto);
+           if(p == null)
+               return;
+           this.buscar(idprojeto); 
+           buscarEtapas();
+           if(p.getSituacao() == 3)
+           {
+               view.addMessage(null, new FacesMessage("O projeto precisa ser iniciado"));
+               return;
+           }
+           if(etapas.isEmpty() || p.getEtapaatual() == null){
+               view.addMessage(null, new FacesMessage("O projeto precisa de etapas para ser continuado"));
+               if(p.getEtapaatual() == null)
+                   p.setEtapaatual(0);
+               return;
+           }
+           p.setEtapaatual(p.getEtapaatual()+1);                      
+           if(etapas.size() < p.getEtapaatual()){                  
+               p.setEtapaatual(0);
+               if(p.getRepeticaoatual() >= p.getRepeticoes()){
+                    p.setSituacao(3);
+                    p.setRepeticoes(0);
+                    p.setRepeticaoatual(0);
+                    DaoProjeto.editar(p);
+                    view.addMessage(null, new FacesMessage("Projeto "+ p.getNome() +" Finalizado"));   
+                    return;
+               }               
+               view.addMessage(null, new FacesMessage("Projeto "+ p.getNome() +" Concluído"));
+               p.setRepeticaoatual(p.getRepeticaoatual()+1);
+               DaoProjeto.editar(p);
+               return;
+           }
+           else
+               DaoProjeto.editar(p);
+       }
 }

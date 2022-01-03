@@ -96,21 +96,25 @@ and open the template in the editor.
                 </div>
             </nav>
         </div>
-        <ui:fragment rendered="#{sessionScope['user'] !='Login' and sessionScope['tipo'] =='sup'}">
+        <ui:fragment rendered="#{sessionScope['user'] !='Login' and (sessionScope['tipo'] =='func' or sessionScope['tipo'] =='sup')}">        
         <h4 id="local">Meus Projetos</h4>
         <div id="container"  class="justify-content-center d-flex">
-            <h:form id="form" class="form-check d-flex justify-content-center" >               
-                <h:panelGrid class="grid" style="width: 70%;">
-                    <h:messages></h:messages>
+            <h:form id="formproj" class="form-check d-flex justify-content-center" >               
+                <h:panelGrid class="grid" style="width: 80%;">
+                    <h:messages style="align-self: center"></h:messages>
                     <h:dataTable var="proj" value="#{beanProjeto.lista}">
                         <h:column class="espacamento"></h:column>
-                        <h:column class="coluna">
+                        <h:column class="coluna" headerClass="coluna-pequena">
                             <f:facet name="header">Nome</f:facet>
                             <h:outputLabel  class="listaitem" value="#{proj.nome}" />
                         </h:column>
                         <h:column class="coluna-pequena">
                             <f:facet name="header">Encarregado</f:facet>
                             <h:outputLabel class="listaitem"  value="#{proj.nomesupervisor()}" />
+                        </h:column> 
+                        <h:column class="coluna-pequena">
+                            <f:facet name="header">Funcionário</f:facet>
+                            <h:outputLabel class="listaitem"  value="#{proj.nomefuncionario()}" />
                         </h:column> 
                         <h:column class="coluna-menor">
                             <f:facet name="header">Tempo previsto</f:facet>
@@ -126,62 +130,34 @@ and open the template in the editor.
                         </h:column>
                         <h:column class="coluna-pequena">
                             <f:facet name="header">Situação</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.buscarSituacao()}" />
+                            <h:outputLabel  class="listaitem" value="#{proj.buscarSituacao()}" />                            
                         </h:column>
                         <h:column class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanProjeto.editarRedirect(proj.idprojeto)}"></h:commandLink>
+                            <ui:fragment rendered="#{proj.buscarSituacao() == 'Não Iniciado' or (proj.buscarSituacao() == 'Finalizado' and sessionScope['tipo'] =='sup')}">
+                                <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Iniciar Projeto" action="#{beanProjeto.iniciar(proj.idprojeto)}"></h:commandLink>
+                            </ui:fragment>
                         </h:column> 
-                        <h:column class="coluna botoesgrid">
-                            <h:commandLink style="color:lightskyblue;"   class="listaitem btn btn-danger text-white border-1 border-dark"  value="deletar" action="#{beanProjeto.deletar(proj.idprojeto)}"></h:commandLink>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGrid>
-            </h:form>
-            </div>  
-        </ui:fragment>
-        <ui:fragment rendered="#{sessionScope['user'] !='Login' and sessionScope['tipo'] =='func'}">
-             <h4 id="local">Meus Projetos</h4>
-             <div id="container"  class="justify-content-center d-flex">
-            <h:form id="form1" class="form-check d-flex justify-content-center" >               
-                <h:panelGrid class="grid" style="width: 70%;">
-                    <h:messages></h:messages>
-                    <h:dataTable var="proj" value="#{beanProjeto.lista}">
-                        <h:column class="espacamento"></h:column>
-                        <h:column class="coluna">
-                            <f:facet name="header">Nome</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.nome}" />
-                        </h:column>
-                        <h:column class="coluna-pequena">
-                            <f:facet name="header">Encarregado</f:facet>
-                            <h:outputLabel class="listaitem"  value="#{proj.nomesupervisor()}" />
-                        </h:column> 
-                        <h:column class="coluna-menor">
-                            <f:facet name="header">Tempo previsto</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.tempoprevisto()}" />
-                        </h:column >
-                        <h:column class="coluna-pequena">
-                            <f:facet name="header">Etapa Atual</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.etapaAtual()}" />
-                        </h:column>
-                        <h:column class="coluna-menor">
-                            <f:facet name="header">Repetições restantes</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.repeticoesRestantes()}" />
-                        </h:column>
-                        <h:column class="coluna-pequena">
-                            <f:facet name="header">Situação</f:facet>
-                            <h:outputLabel  class="listaitem" value="#{proj.buscarSituacao()}" />
-                        </h:column>
-                        <h:column class="coluna botoesgrid">
+                         <h:column class="coluna botoesgrid">
                             <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Informações Etapa Atual" action="#{beanProjeto.infoEtapaAtual(proj.idprojeto)}"></h:commandLink>
                         </h:column>
                         <h:column class="coluna botoesgrid">
                             <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Avançar Etapa" action="#{beanProjeto.avancarEtapa(proj.idprojeto)}"></h:commandLink>
+                        </h:column>                                 
+                        <h:column class="coluna botoesgrid">
+                            <ui:fragment rendered="#{sessionScope['tipo'] =='sup'}">
+                                <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="editar" action="#{beanProjeto.editarRedirect(proj.idprojeto)}"></h:commandLink>
+                            </ui:fragment>
                         </h:column> 
+                        <h:column class="coluna botoesgrid">
+                            <ui:fragment rendered="#{sessionScope['tipo'] =='sup'}">
+                                <h:commandLink style="color:lightskyblue;"   class="listaitem btn btn-danger text-white border-1 border-dark"  value="deletar" action="#{beanProjeto.deletar(proj.idprojeto)}"></h:commandLink>
+                            </ui:fragment>
+                        </h:column>
                     </h:dataTable>
                 </h:panelGrid>
             </h:form>
             </div>  
-        </ui:fragment>
+        </ui:fragment>        
         <ui:fragment rendered="#{sessionScope['user'] =='Login'}"><h1 style="text-align: center;margin-top: 10%;">Acesso negado! Por favor, realize o Login</h1></ui:fragment>        
         <div id="footer">
             <div class="row">

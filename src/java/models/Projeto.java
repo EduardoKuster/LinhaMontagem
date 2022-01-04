@@ -9,6 +9,9 @@ import DAO.DaoEtapa;
 import DAO.DaoProjeto;
 import DAO.DaoSupervisor;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -229,8 +232,28 @@ public class Projeto implements Serializable {
     }
      
      public String tempoprevisto(){
-         //calcular o tempo combinado das etapas restantes
-         return "Sem tempo previsto";
+         if(this.etapasprojetosCollection.isEmpty())
+             return "Sem etapas";
+         
+         Calendar cal = Calendar.getInstance();
+         cal.clear();
+         
+         if(this.etapaatual == null)
+             this.etapaatual = 1;
+         else if(this.etapaatual == 0)
+             this.etapaatual++;
+         for(int i = this.etapaatual-1; i< this.etapasprojetosCollection.size();i++){
+             Etapasprojetos ep =(Etapasprojetos) this.etapasprojetosCollection.toArray()[i];
+             Etapa e = ep.getFketapa();   
+             cal.add(Calendar.HOUR_OF_DAY, e.getTempoestimado().getHours());
+             cal.add(Calendar.MINUTE, e.getTempoestimado().getMinutes()); 
+             cal.add(Calendar.SECOND, e.getTempoestimado().getSeconds());
+
+         }
+         Date tempo = cal.getTime();
+         return ""+((tempo.getHours()<=9)?"0"+tempo.getHours():tempo.getHours())+":"+((tempo.getMinutes()<=9)?"0"+tempo.getMinutes():tempo.getMinutes())+":"+((tempo.getSeconds()<=9)?"0"+tempo.getSeconds():tempo.getSeconds());
+             
+        // return "Sem tempo previsto";
      }
      
      public String repeticoesRestantes(){
@@ -238,7 +261,7 @@ public class Projeto implements Serializable {
      }
      
      public String etapaAtual(){
-         if(this.etapaatual == null || this.etapaatual == 0)
+         if(this.etapaatual == null || this.etapaatual == 0 || this.situacao == 3)
             return "Não iniciado";
          else
          {

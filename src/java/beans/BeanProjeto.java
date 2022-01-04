@@ -318,6 +318,19 @@ public class BeanProjeto {
                DaoProjeto.editar(p);
        }
        
+         public void finalizar(int idprojeto){           
+           FacesContext view = FacesContext.getCurrentInstance();     
+           Projeto p = DaoProjeto.buscar(idprojeto);
+           if(p == null)
+               return;
+           this.buscar(idprojeto);
+           
+           p.setSituacao(3);
+           p.setEtapaatual(0);
+           buscarEtapas();
+           DaoProjeto.editar(p);
+       }
+       
        public void avancarEtapa(int idprojeto){           
            FacesContext view = FacesContext.getCurrentInstance();     
            Projeto p = DaoProjeto.buscar(idprojeto);

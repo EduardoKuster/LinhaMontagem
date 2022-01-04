@@ -136,6 +136,9 @@ and open the template in the editor.
                             <ui:fragment rendered="#{proj.buscarSituacao() == 'Não Iniciado' or (proj.buscarSituacao() == 'Finalizado' and sessionScope['tipo'] =='sup')}">
                                 <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Iniciar Projeto" action="#{beanProjeto.iniciar(proj.idprojeto)}"></h:commandLink>
                             </ui:fragment>
+                            <ui:fragment rendered="#{proj.buscarSituacao() == 'Em produção' and sessionScope['tipo'] =='sup'}">
+                                <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Finalizar Projeto" action="#{beanProjeto.finalizar(proj.idprojeto)}"></h:commandLink>
+                            </ui:fragment>
                         </h:column> 
                          <h:column class="coluna botoesgrid">
                             <h:commandLink style="color:lightskyblue;"  class="listaitem btn btn-info text-white border-1 border-dark"  value="Informações Etapa Atual" action="#{beanProjeto.infoEtapaAtual(proj.idprojeto)}"></h:commandLink>

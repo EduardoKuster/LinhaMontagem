@@ -11,6 +11,7 @@ import DAO.DaoSupervisor;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -75,7 +76,7 @@ public class Projeto implements Serializable {
     @ManyToOne
     private Supervisor fksupervisor;
     @OneToMany(mappedBy = "fkprojeto")
-    private Collection<Etapasprojetos> etapasprojetosCollection; 
+    private Collection<Etapasprojetos> etapasprojetosCollection;
     @Column(name = "etapaatual")
     private Integer etapaatual;
 
@@ -214,80 +215,127 @@ public class Projeto implements Serializable {
     public String toString() {
         return "models.Projeto[ idprojeto=" + idprojeto + " ]";
     }
-     public List<Projeto> consultar() {
-      return DaoProjeto.todos();
-    }
-     
-     public String nomesupervisor(){
-        if(fksupervisor != null)
-            return fksupervisor.getNome();
-        else 
-            return "Sem supervisor";
-    }
-     public String nomefuncionario(){
-        if(fkfuncionario != null)
-            return fkfuncionario.getNome();
-        else 
-            return "Sem Funcionário";
-    }
-     
-     public String tempoprevisto(){
-         if(this.etapasprojetosCollection.isEmpty())
-             return "Sem etapas";
-         
-         Calendar cal = Calendar.getInstance();
-         cal.clear();
-         
-         if(this.etapaatual == null)
-             this.etapaatual = 1;
-         else if(this.etapaatual == 0)
-             this.etapaatual++;
-         for(int i = this.etapaatual-1; i< this.etapasprojetosCollection.size();i++){
-             Etapasprojetos ep =(Etapasprojetos) this.etapasprojetosCollection.toArray()[i];
-             Etapa e = ep.getFketapa();   
-             cal.add(Calendar.HOUR_OF_DAY, e.getTempoestimado().getHours());
-             cal.add(Calendar.MINUTE, e.getTempoestimado().getMinutes()); 
-             cal.add(Calendar.SECOND, e.getTempoestimado().getSeconds());
 
-         }
-         Date tempo = cal.getTime();
-         return ""+((tempo.getHours()<=9)?"0"+tempo.getHours():tempo.getHours())+":"+((tempo.getMinutes()<=9)?"0"+tempo.getMinutes():tempo.getMinutes())+":"+((tempo.getSeconds()<=9)?"0"+tempo.getSeconds():tempo.getSeconds());
-             
+    public List<Projeto> consultar() {
+        return DaoProjeto.todos();
+    }
+
+    public String nomesupervisor() {
+        if (fksupervisor != null) {
+            return fksupervisor.getNome();
+        } else {
+            return "Sem supervisor";
+        }
+    }
+
+    public String nomefuncionario() {
+        if (fkfuncionario != null) {
+            return fkfuncionario.getNome();
+        } else {
+            return "Sem Funcionário";
+        }
+    }
+
+    public String tempoprevisto() {
+        if (this.etapasprojetosCollection.isEmpty()) {
+            return "Sem etapas";
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+
+        if (this.etapaatual == null) {
+            this.etapaatual = 1;
+        } else if (this.etapaatual == 0) {
+            this.etapaatual++;
+        }
+        for (int i = this.etapaatual - 1; i < this.etapasprojetosCollection.size(); i++) {
+            Etapasprojetos ep = (Etapasprojetos) this.etapasprojetosCollection.toArray()[i];
+            Etapa e = ep.getFketapa();
+            cal.add(Calendar.HOUR_OF_DAY, e.getTempoestimado().getHours());
+            cal.add(Calendar.MINUTE, e.getTempoestimado().getMinutes());
+            cal.add(Calendar.SECOND, e.getTempoestimado().getSeconds());
+
+        }
+        Date tempo = cal.getTime();
+        return "" + ((tempo.getHours() <= 9) ? "0" + tempo.getHours() : tempo.getHours()) + ":" + ((tempo.getMinutes() <= 9) ? "0" + tempo.getMinutes() : tempo.getMinutes()) + ":" + ((tempo.getSeconds() <= 9) ? "0" + tempo.getSeconds() : tempo.getSeconds());
+
         // return "Sem tempo previsto";
-     }
-     
-     public String repeticoesRestantes(){
-         return String.valueOf(repeticoes - ((repeticaoatual == null)? 0:repeticaoatual));
-     }
-     
-     public String etapaAtual(){
-         if(this.etapaatual == null || this.etapaatual == 0 || this.situacao == 3)
+    }
+
+    public List<Ferramenta> ferramentasEtapas() {
+        List<Ferramenta> lf = new ArrayList<>();
+        if (this.etapasprojetosCollection.isEmpty()) {
+            Ferramenta f = new Ferramenta(0, "Sem ferramenta");
+            lf.add(f);
+            return lf;
+        }
+
+        if (this.etapaatual == null) {
+            this.etapaatual = 1;
+        } else if (this.etapaatual == 0) {
+            this.etapaatual++;
+        }
+        for (int i = this.etapaatual - 1; i < this.etapasprojetosCollection.size(); i++) {
+            Etapasprojetos ep = (Etapasprojetos) this.etapasprojetosCollection.toArray()[i];
+            Etapa e = ep.getFketapa();
+            if (e.getFkferramenta() != null) {
+                lf.add(e.getFkferramenta());
+            }
+        }
+        return lf;
+    }
+
+    public List<Peca> pecasEtapas() {
+        List<Peca> lp = new ArrayList<>();
+        if (this.etapasprojetosCollection.isEmpty()) {
+            Peca p = new Peca("Sem Peça", 0);
+            lp.add(p);
+            return lp;
+        }
+
+        if (this.etapaatual == null) {
+            this.etapaatual = 1;
+        } else if (this.etapaatual == 0) {
+            this.etapaatual++;
+        }
+        for (int i = this.etapaatual - 1; i < this.etapasprojetosCollection.size(); i++) {
+            Etapasprojetos ep = (Etapasprojetos) this.etapasprojetosCollection.toArray()[i];
+            Etapa e = ep.getFketapa();
+            if (e.getFkpeca() != null) {
+                lp.add(e.getFkpeca());
+            }
+        }
+        return lp;
+    }
+
+    public String repeticoesRestantes() {
+        return String.valueOf(repeticoes - ((repeticaoatual == null) ? 0 : repeticaoatual));
+    }
+
+    public String etapaAtual() {
+        if (this.etapaatual == null || this.etapaatual == 0 || this.situacao == 3) {
             return "Não iniciado";
-         else
-         {
-             List<Etapa> et = DaoEtapa.consultarProjeto(this.idprojeto);             
-             return et.get(this.etapaatual-1).getDescricao();
-         }
-     }
-     
-     public String buscarSituacao(){
-         switch(this.situacao){
-             case 1:
-             {
-                 return "Não Iniciado";
-             }
-             case 2:
-             {
-                 return "Em produção";
-             }
-             case 3:
-             {
-                 return "Finalizado";
-             }
-             default:
-             {
-                 return "Status inválido";
-             }
-         }
-     }
+        } else {
+            List<Etapa> et = DaoEtapa.consultarProjeto(this.idprojeto);
+            return et.get(this.etapaatual - 1).getDescricao();
+        }
+    }
+
+    public String buscarSituacao() {
+        switch (this.situacao) {
+            case 1: {
+                return "Não Iniciado";
+            }
+            case 2: {
+                return "Em produção";
+            }
+            case 3: {
+                return "Finalizado";
+            }
+            default: {
+                return "Status inválido";
+            }
+        }
+    }
 }

@@ -2,6 +2,7 @@ package beans;
 
 import DAO.DaoEtapa;
 import DAO.DaoFerramenta;
+import DAO.DaoPeca;
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +36,7 @@ public class BeanEtapa {
     }
     private Date tempoestimado;
     private List<Ferramenta> ferramentas;
+    private List<Peca> pecas;
 
     public int getPeca() {
         return peca;
@@ -42,6 +44,14 @@ public class BeanEtapa {
 
     public void setPeca(int peca) {
         this.peca = peca;
+    }
+
+    public List<Peca> getPecas() {
+        return pecas;
+    }
+
+    public void setPecas(List<Peca> pecas) {
+        this.pecas = pecas;
     }
 
     public int getFerramenta() {
@@ -100,12 +110,13 @@ public class BeanEtapa {
 
     public void buscar(int id) {
         Etapa e = DaoEtapa.buscar(id);
-
+        if(e==null)
+            return;
         this.idetapa = e.getIdetapa();
         this.descricao = e.getDescricao();
         this.tempoestimado = e.getTempoestimado();
         this.ferramenta = (e.getFkferramenta() == null? 0:e.getFkferramenta().getIdferramenta());
-        //this.peca = e.getFkpeca().getIdpeca();
+        this.peca = (e.getFkpeca() == null? 0:e.getFkpeca().getIdpeca());
     }
 
     public void salvar() {
@@ -149,6 +160,13 @@ public class BeanEtapa {
         ferramentasEscolhas.add(new Ferramenta(0, "sem ferramenta"));
         ferramentasEscolhas.addAll(DaoFerramenta.todos());
         ferramentas = ferramentasEscolhas;
+    }
+    
+     public void buscarPecas() {
+        List<Peca> pecasEscolhas = new ArrayList<Peca>();
+        pecasEscolhas.add(new Peca(0,"sem peça",0));
+        pecasEscolhas.addAll(DaoPeca.todos());
+        pecas = pecasEscolhas;
     }
 
     public void consultar() {

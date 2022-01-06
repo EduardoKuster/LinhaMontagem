@@ -17,12 +17,12 @@
         <title>Cadastro de Etapa</title>
         <link rel="shortcut icon" href="css/favicon.ico" />
     </h:head>
-    <h:body  onload="#{beanEtapa.buscarFerramentas()}">       
+    <h:body  onload="#{beanEtapa.buscarFerramentas(); beanEtapa.buscarPecas()}">       
           <div id="cabecalho">  
             <nav class="navbar navbar-expand-lg navbar-light bg-primary">                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul style="margin-left: 10%" class="navbar-nav mr-auto">
-                        <li><img src="css/logopequenabranca.png" alt="" style="margin: -5px; margin-right: 10px; margin-top: 1px;"/> </li>
+                        <li><img src="https://i.ibb.co/gJpCzcR/logopequenabranca.png" alt="" style="margin: -5px; margin-right: 10px; margin-top: 1px;"/> </li>
                         <li class="nav-item active">
                             <a class="nav-link text-white font-weight-bold" href="index.jsf">Inicio <span class="sr-only">(current)</span></a>
                         </li>
@@ -103,8 +103,15 @@
                 
                 <h:outputLabel>Ferramenta necessária</h:outputLabel>                
                 <h:column>
-                    <h:selectOneMenu  class="input" value="#{beanEtapa.ferramenta}">
+                    <h:selectOneMenu  class="input form-control" value="#{beanEtapa.ferramenta}">
                         <f:selectItems value="#{beanEtapa.ferramentas}" var="fer" itemValue="#{fer.idferramenta}" itemLabel="#{fer.nome}" />
+                    </h:selectOneMenu>
+                </h:column> 
+                
+                <h:outputLabel>Peça necessária</h:outputLabel>                
+                <h:column>
+                    <h:selectOneMenu  class="input form-control" value="#{beanEtapa.peca}">
+                        <f:selectItems value="#{beanEtapa.pecas}" var="pec" itemValue="#{pec.idpeca}" itemLabel="#{pec.nome}" />
                     </h:selectOneMenu>
                 </h:column> 
                 <br></br>

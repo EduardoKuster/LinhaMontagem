@@ -150,6 +150,12 @@ public class Etapa implements Serializable {
         else 
             return "Sem ferramenta";
     }
+      public String nomepeca(){
+        if(fkpeca != null && DaoPeca.buscar(fkpeca.getIdpeca()) != null)
+            return DaoPeca.buscar(fkpeca.getIdpeca()).getNome();
+        else 
+            return "Sem peça";
+    }
           
      public String tempoString(){
          return new Time(tempoestimado.getTime()).toString();

@@ -19,7 +19,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import models.Etapa;
 import models.Etapasprojetos;
+import models.Ferramenta;
 import models.Funcionario;
+import models.Peca;
 import models.Projeto;
 import models.Supervisor;
 
@@ -39,11 +41,29 @@ public class BeanProjeto {
     private List<Supervisor> supervisores;
     private List<Funcionario> funcionarios;
     private List<Etapa> etapas = new ArrayList<>();
+    private List<Ferramenta> ferramentas = new ArrayList<>();
+    private List<Peca> pecas = new ArrayList<>();
     private int etapaAdc;
     private int etapaAtual;
 
     public int getEtapaAtual() {
         return etapaAtual;
+    }
+
+    public List<Ferramenta> getFerramentas() {
+        return ferramentas;
+    }
+
+    public void setFerramentas(List<Ferramenta> ferramentas) {
+        this.ferramentas = ferramentas;
+    }
+
+    public List<Peca> getPecas() {
+        return pecas;
+    }
+
+    public void setPecas(List<Peca> pecas) {
+        this.pecas = pecas;
     }
 
     public void setEtapaAtual(int etapaAtual) {
@@ -88,6 +108,10 @@ public class BeanProjeto {
        
     public String editarEtapasRedirect(int id){
        return "editaEtapasProjeto.jsf?faces-redirect=true&idprojeto="+id;      
+    }
+    
+    public String pecasFerramentas(int id){
+       return "pecasFerramentasProjeto.jsf?faces-redirect=true&idprojeto="+id;      
     }
 
      public void buscar(int id){
@@ -299,6 +323,28 @@ public class BeanProjeto {
           else 
             return "Sem supervisor";
     }
+       public void pecasFerramentasProjeto(int idprojeto){
+           FacesContext view = FacesContext.getCurrentInstance();     
+           Projeto p = DaoProjeto.buscar(idprojeto);
+           if(p == null)
+               return;
+           this.buscar(idprojeto);
+           buscarEtapas();
+           if(etapas.isEmpty()){
+               view.addMessage(null, new FacesMessage("Sem etapas para precisar de peças ou ferramentas"));
+               return;
+           }           
+           ferramentas = p.ferramentasEtapas(); 
+           if(ferramentas.size() == 0){            
+              Ferramenta f = new Ferramenta(0,"Sem ferramenta");
+               ferramentas.add(f);
+           }
+           pecas = p.pecasEtapas();
+           if(pecas.size() == 0){               
+               Peca peca = new Peca("Sem Peça",0);
+               pecas.add(peca);
+           }
+       }
        
        public void iniciar(int idprojeto){           
            FacesContext view = FacesContext.getCurrentInstance();     
